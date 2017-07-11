@@ -25,9 +25,22 @@ namespace RavenfieldModCombine
         public static void InstallMods()
         {
             string[] modFiles = Directory.GetFiles(Commands.Dire("Mods\\"), "*.dll", SearchOption.TopDirectoryOnly);
-            foreach (string mod in modFiles)
+            // Addes each mod into the game. Also checks if assemblies exist. Thus the try, catch statement.
+            try
             {
-                Commands.ILMergeCMD("");
+                foreach (string mod in modFiles)
+                {
+                    Commands.ILMergeCMD(Commands.Dire("ravenfield_Data\\Managed\\Assembly-CSharp.dll ") + mod + " /out:" + "ravenfield_Data\\Managed\\Assembly-CSharp.dll " + "/target:winexe /targetplatform:'v3.5,C:\\Program Files (x86)\\Reference Assemblies\\Microsoft\\Framework\\.NETFramework\\v3.5");
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            if (!(Commands.FileEx("ravenfield_Data\\Managed\\Assembly-CSharp.dll")))
+            {
+                File.Copy(Commands.Dire("ravenfield_Data\\Managed\\Assembly-CSharp.dll"), Commands.Dire("ravenfield_Data\\Managed\\Assembly-CSharp-NORMAL.dll"));
             }
             Commands.StartRavenfield();
         }

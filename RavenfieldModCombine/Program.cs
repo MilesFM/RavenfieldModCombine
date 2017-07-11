@@ -26,7 +26,7 @@ namespace RavenfieldModCombine
                 Commands.StartRavenfield();
             }
 
-            if (Commands.DireEx("ILMerge.exe"))
+            if (Commands.FileEx("ILMerge.exe"))
             {
                 Start();
             }

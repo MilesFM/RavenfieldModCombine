@@ -53,7 +53,7 @@ namespace RavenfieldModCombine
         /// <returns>Directory/File</returns>
         public static string Dire(string dire)
         {
-            return "'" + Directory.GetCurrentDirectory() + dire + "'";
+            return Directory.GetCurrentDirectory() + dire;
         }
         /// <summary>
         /// Tests if directory exists
